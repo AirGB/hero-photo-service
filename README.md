@@ -42,18 +42,26 @@ within the database directory, run schema.sql then run Populator.js to populate 
 
 ## GET request to the server to retrieve all the photos from a listing 
 
+```sh
 curl -X GET http://localhost:3000/api/listings/:listing_id/photos
+```
 
 ## POST request to the server to add a new photo
 
+```sh
 curl - X POST http://localhost:3000/api/listings/:listing_id/photos/new
+```
 
 ## UPDATE request to the server to update a photo
 
+```sh
 curl -X PUT http://localhost:3000/api/listings/:listing_id/photos/update
+```
 
 ## DELETE request to the server delete a photo 
 
+```sh
 curl -X DELETE http://localhost:3000/api/listing/:listing_id/delete
+```
 
 
