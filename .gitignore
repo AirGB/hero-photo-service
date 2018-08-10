@@ -2,3 +2,4 @@ node_modules/
 coverage/
 database/Populator.js
 .env
+*.csv
