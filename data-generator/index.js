@@ -1,6 +1,6 @@
 const fs = require ('fs');
 const faker = require ('faker');
-// const readline = require ('linebyline');
+const readline = require ('linebyline');
 
 // Helper funcitons
 
@@ -23,17 +23,48 @@ const generatePhotoUrl = () => {
     return photoUrl;
 }
 
-const generatePhotos = () => {
-  console.log('generatePhotos');
-  let out = fs.createWriteStream('./photosData.csv', {flag: 'a'});
+// took over 1 hour and had to terminate it
+// const generatePhotos = () => {
+//   console.log('generatePhotos');
+//   let out = fs.createWriteStream('./photosData.csv');
   
-  for (var i = 1; i < 10000001; i++) {
-    out.write(`${i},${faker.company.catchPhrase()},${generatePhotoUrl()},${randomNumberGen(1, 10000001)}\n`, 'utf-8');
-  }
-  out.end();
+//   for (var i = 1; i < 30000001; i++) {
+//     out.write(`${i},${faker.company.catchPhrase()},${generatePhotoUrl()},${randomNumberGen(1, 10000001)}\n`, 'utf-8');
+//   }
+//   out.end();
+// }
+
+// helper function
+const createString = (i) => {
+  return `${i},${faker.company.catchPhrase()},${generatePhotoUrl()},${randomNumberGen(1, 10000001)}\n`
 }
 
+// set stream equal to writer
+let writer = fs.createWriteStream('./photosData.csv');
 
+const createPhotos = function() {
+  let i = 30000001;
+  write();
+  function write() {
+    let ok = true;
+    do {
+      i--;
+      if (i === 1) {
+        // last time!
+        writer.write(createString(i), 'utf-8');
+      } else {
+        // see if we should continue, or wait
+        // don't pass the callback, because we're not done yet.
+        ok = writer.write(createString(i), 'utf-8');
+      }
+    } while (i > 1 && ok);
+    if (i > 1) {
+      // had to stop early!
+      // write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+}
 
 const generateProperties = () => {
   console.log('generateProperties');
@@ -42,7 +73,7 @@ const generateProperties = () => {
   var nouns =  ["historic landmark", "home", "home warranty", "homeowners insurance", "homestead", "house", "house boat", "property", "ranch", 'house']
   var emotions =  ["a blessing", "a daily joy", "a dream boat", "a dream come true", "a goddess", "a heart throb", "a loving friend", "a real-life fantasy", "accepting", "adorable", "adventurous", "affectionate", "agreeable", "alluring", "always there for me", "amazing", "an angel", "angelic", "artistic", "attentive", "attractive", "awe-inspiring", "beautiful", "beloved", "bewitching", "blessed", "brave", "breathtaking", "bright", "brilliant", "candid", "captivating", "careful", "caring", "charming", "cheeky", "cheerful", "classy", "clever", "committed", "compassionate", "complex", "confident", "considerate", "courageous", "crafty", "creative", "cuddly", "cultured", "curious", "curvy", "cute", "daring", "darling", "dazzling", "dedicated", "delicate", "delightful", "dependable", "disciplined", "down-to-earth", "dreamy", "dynamic", "easy-going", "easy-to-love", "lovable", "loved", "lovely", "loving", "loyal", "luminous", "luscious", "magical", "magnetic", "mature", "mesmerizing", "mischievous", "motivated", "musical", "my baby doll", "my beloved", "my best friend", "my confidante", "my dearest", "my dream girl", "my dream guy", "my everything", "my fantasy", "my favorite person", "my happiness", "my honey", "my joy in life", "my life partner", "my longtime crush", "my main man", "my main squeeze", "my other half", "my partner in crime", "my playmate", "my pride and joy", "my sanity", "my soul mate", "my strength", "my sunshine", "mysterious", "narcotic", "naughty", "no drama", "nurturing", "one-of-a-kind", "open-minded", "opinionated", "passionate", "patient", "perceptive", "perfect", "personable", "petite", "playful", "poetic", "positive", "precious", "pretty", "principled", "provocative"];
   // let out = fs.createWriteStream('./')
-  let out = fs.createWriteStream('./propertiesData.csv', {flag: 'a'});
+  let out = fs.createWriteStream('./propertiesData.csv');
   // fs.writeFile('properties.csv',"listing name \n", (err)=> {
   //   if (err) {
   //     console.log(err);
@@ -71,17 +102,64 @@ const generateProperties = () => {
   }
 }
 
+const generateListings = () => {
+  console.log('generateListings');
+  const rl = readline('./propertiesData.csv', {
+    retainBuffer: true
+  });
+  let out = fs.createWriteStream('./listingsData.csv');
+  rl.on('line', (line) => {
+    const lineStr = line.toString();
+    const lineSplit = lineStr.split(',');
+    out.write(`${lineSplit[0]},${lineSplit[1]},${randomNumberGen(1,5)},${faker.lorem.sentence()},${faker.name.firstName()} ${faker.name.lastName()}\,${faker.address.streetName()}\, ${faker.address.city()}\, ${faker.address.state()},${faker.image.avatar()},${faker.lorem.sentence()}\n`,'utf-8');
+  });
+}
+
+// test to see if generateListings has the correct info
+const testGenerateListings = () => {
+  console.log('testGenerateListings');
+  let out = fs.createWriteStream('./testList.csv');
+  for (var i = 1; i < 101; i++) {
+    out.write(`${i},${randomNumberGen(1,5)},${faker.lorem.sentence()},${faker.name.firstName()} ${faker.name.lastName()}\,${faker.address.streetName()}\, ${faker.address.city()}\, ${faker.address.state()},${faker.image.avatar()},${faker.lorem.sentence()}\n`, 'utf-8');
+  }
+  out.end();
+}
+
+const generateListingsLists = () => {
+  console.log('generateListingsLists');
+  let out = fs.createWriteStream('./listingsListsData.csv');
+  for (var i = 1; i < 10000001; i++) {
+    out.write(`${randomNumberGen(1,10000001)},${randomNumberGen(1,10000001)}\n`, 'utf-8');
+  }
+  out.end();
+}
+
+const generateLists = () => {
+  console.log('generateLists');
+  let out = fs.createWriteStream('./listsData.csv');
+  for (var i = 1; i < 10000001; i++) {
+    out.write(`${i},${faker.name.jobTitle()},${randomNumberGen(1,100000001)}\n`, 'utf-8');
+  }
+  out.end();
+}
+
 const generateUsers = () => {
   console.log('generateUsers');
-  let out = fs.createWriteStream('./usersData.csv', {flag: 'a'});
-  for(var i = 1; i < 10000001; i++) {
-    out.write(`${i}.${faker.internet.userName()}\n`, 'utf-8');
+  let out = fs.createWriteStream('./usersData.csv');
+  for (var i = 1; i < 10000001; i++) {
+    out.write(`${i},${faker.internet.userName()},${faker.date.past()},${faker.image.avatar()}\n`,'utf-8');
   }
   out.end();
 }
 
 // time node --max-old-space-size=8192 index.js
 
-// generateUsers();
+
 // generateProperties();
-generatePhotos();
+// generatePhotos();
+// createPhotos();
+// testGenerateListings();
+generateListings();
+// generateListingsLists();
+// generateLists();
+// generateUsers();
