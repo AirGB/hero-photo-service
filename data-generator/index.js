@@ -129,7 +129,7 @@ const generateListingsLists = () => {
   console.log('generateListingsLists');
   let out = fs.createWriteStream('./listingsListsData.csv');
   for (var i = 1; i < 10000001; i++) {
-    out.write(`${randomNumberGen(1,10000001)},${randomNumberGen(1,10000001)}\n`, 'utf-8');
+    out.write(`${i},${i}\n`, 'utf-8');
   }
   out.end();
 }
@@ -159,7 +159,7 @@ const generateUsers = () => {
 // generatePhotos();
 // createPhotos();
 // testGenerateListings();
-generateListings();
+// generateListings();
 // generateListingsLists();
 // generateLists();
 // generateUsers();
