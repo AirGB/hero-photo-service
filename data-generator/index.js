@@ -16,6 +16,20 @@ const appendLeading = (val) => {
   }
 }
 
+const generateDates = () => {
+  var arr = [];
+  var year = randomNumberGen(2008, 2017);
+  var month = randomNumberGen(1,12);
+  var day = randomNumberGen(1,28);
+
+  var date = `${year}-${appendLeading(month)}-${appendLeading(day)}`;
+
+  arr.push(date);
+
+  return arr;
+}
+
+
 // helper function to produce random photo
 const generatePhotoUrl = () => {
     let photoId = randomNumberGen(1, 1001);
@@ -111,7 +125,7 @@ const generateListings = () => {
   rl.on('line', (line) => {
     const lineStr = line.toString();
     const lineSplit = lineStr.split(',');
-    out.write(`${lineSplit[0]},${lineSplit[1]},${randomNumberGen(1,5)},${faker.lorem.sentence()},${faker.name.firstName()} ${faker.name.lastName()}\,${faker.address.streetName()}\, ${faker.address.city()}\, ${faker.address.state()},${faker.image.avatar()},${faker.lorem.sentence()}\n`,'utf-8');
+    out.write(`${lineSplit[0]},${lineSplit[1]},${randomNumberGen(1,5)},${randomNumberGen(0, 1000)},${faker.name.firstName()} ${faker.name.lastName()},"${faker.address.streetName()}, ${faker.address.city()}, ${faker.address.state()}",${faker.image.avatar()},${faker.lorem.sentence()},${faker.lorem.sentence()},${faker.lorem.sentence()}\n`,'utf-8');
   });
 }
 
@@ -120,7 +134,7 @@ const testGenerateListings = () => {
   console.log('testGenerateListings');
   let out = fs.createWriteStream('./testList.csv');
   for (var i = 1; i < 101; i++) {
-    out.write(`${i},${randomNumberGen(1,5)},${faker.lorem.sentence()},${faker.name.firstName()} ${faker.name.lastName()}\,${faker.address.streetName()}\, ${faker.address.city()}\, ${faker.address.state()},${faker.image.avatar()},${faker.lorem.sentence()}\n`, 'utf-8');
+    out.write(`${i},${randomNumberGen(1,5)},${randomNumberGen(0, 1000)},${faker.name.firstName()} ${faker.name.lastName()}, "${faker.address.streetName()}, ${faker.address.city()}, ${faker.address.state()}",${faker.image.avatar()},${faker.lorem.sentence()},${faker.lorem.sentence()},${faker.lorem.sentence()}\n`,'utf-8');
   }
   out.end();
 }
@@ -147,7 +161,7 @@ const generateUsers = () => {
   console.log('generateUsers');
   let out = fs.createWriteStream('./usersData.csv');
   for (var i = 1; i < 10000001; i++) {
-    out.write(`${i},${faker.internet.userName()},${faker.date.past()},${faker.image.avatar()}\n`,'utf-8');
+    out.write(`${i},${faker.internet.userName()},${generateDates()},${faker.image.avatar()}\n`,'utf-8');
   }
   out.end();
 }
@@ -157,9 +171,9 @@ const generateUsers = () => {
 
 // generateProperties();
 // generatePhotos();
-// createPhotos();
+createPhotos();
 // testGenerateListings();
-generateListings();
+// generateListings();
 // generateListingsLists();
 // generateLists();
 // generateUsers();
