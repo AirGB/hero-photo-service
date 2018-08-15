@@ -32,7 +32,7 @@ const generateDates = () => {
 
 // helper function to produce random photo
 const generatePhotoUrl = () => {
-    let photoId = randomNumberGen(1, 1001);
+    let photoId = randomNumberGen(1, 1000);
     let photoUrl = `https://s3-us-west-2.amazonaws.com/sdc-hero/SDC+Photos/photo${photoId}.jpg`;
     return photoUrl;
 }
@@ -50,7 +50,7 @@ const generatePhotoUrl = () => {
 
 // helper function
 const createString = (i) => {
-  return `${i},${faker.company.catchPhrase()},${generatePhotoUrl()},${randomNumberGen(1, 10000001)}\n`
+  return `${i},${faker.company.catchPhrase()},${generatePhotoUrl()},${randomNumberGen(1, 10000000)}\n`
 }
 
 // set stream equal to writer
@@ -143,7 +143,7 @@ const generateListingsLists = () => {
   console.log('generateListingsLists');
   let out = fs.createWriteStream('./listingsListsData.csv');
   for (var i = 1; i < 10000001; i++) {
-    out.write(`${randomNumberGen(1,10000001)},${randomNumberGen(1,10000001)}\n`, 'utf-8');
+    out.write(`${randomNumberGen(1,10000000)},${randomNumberGen(1,10000000)}\n`, 'utf-8');
   }
   out.end();
 }
@@ -152,7 +152,7 @@ const generateLists = () => {
   console.log('generateLists');
   let out = fs.createWriteStream('./listsData.csv');
   for (var i = 1; i < 10000001; i++) {
-    out.write(`${i},${faker.name.jobTitle()},${randomNumberGen(1,100000001)}\n`, 'utf-8');
+    out.write(`${i},${faker.name.jobTitle()},${randomNumberGen(1,10000000)}\n`, 'utf-8');
   }
   out.end();
 }
@@ -169,9 +169,13 @@ const generateUsers = () => {
 // time node --max-old-space-size=8192 index.js
 
 
+
+// need to run generateLists
+
+
 // generateProperties();
 // generatePhotos();
-createPhotos();
+// createPhotos();
 // testGenerateListings();
 // generateListings();
 // generateListingsLists();
