@@ -175,7 +175,7 @@ const generateUsers = () => {
 
 // generateProperties();
 // generatePhotos();
-// createPhotos();
+createPhotos();
 // testGenerateListings();
 // generateListings();
 // generateListingsLists();

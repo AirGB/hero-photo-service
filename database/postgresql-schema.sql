@@ -59,6 +59,24 @@ COPY listings_lists (listing_id, list_id) FROM '/Users/serviolee/hackreactor/sdc
 COPY listing_photos (id, photo_description, photo_url, photo_listing_id) FROM '/Users/serviolee/hackreactor/sdc/hero-photo-service/data-generator/photosData.csv' DELIMITER ',' CSV;
 
 
+-- add back foreign keys
+ALTER TABLE lists 
+ FOREIGN KEY(list_user_id) REFERENCES users(id)
+
+ALTER TABLE listings_lists
+  FOREIGN KEY (listing_id) REFERENCES listings(id)
+  
+ALTER TABLE listings_lists
+  FOREIGN KEY (list_id) REFERENCES lists(id)
+
+ALTER TABLE listing_photos
+ FOREIGN KEY(photo_listing_id) REFERENCES listings(id)
+ 
+-- optimization
+CREATE index index_list_user_id ON lists(list_user_id);
+
+CREATE index index_photo_listing_id ON listing_photos(photo_listing_id);
+
 
 
 
