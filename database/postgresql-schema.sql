@@ -1,3 +1,8 @@
+-- DROP DATABASE IF EXISTS hero;
+-- CREATE DATABASE hero; 
+
+-- \c hero;
+
 CREATE TABLE users (
   id INT PRIMARY KEY,
   user_name TEXT NOT NULL, 
