@@ -34,13 +34,39 @@ app.get('/listings/:listing_id/photos', (req, res) => {
 
 app.post('/listings/:listing_id/photos', (req, res) => {
   const listingId = req.params.listing_id;
-  const photoDescription = req.body.photoDescription;
-  const photoUrl = req.body.photoUrl;
-  psql.addListingPhoto(listingId, photoDescription, photoUrl, (err, result) => {
+  const photoDescription = req.body.photo_description;
+  const photoUrl = req.body.photo_url;
+  psql.addListingPhoto(listingId, photoDescription, photoUrl, (err, results) => {
     if (err) {
       console.log('Server error adding photo', err);
     } else {
       console.log('Server success adding photo');
+      res.sendStatus(201);
+    }
+  })
+})
+
+app.delete('/listings/photos/:photo_id', (req, res) => {
+  const photoId = req.params.photo_id;
+  psql.deleteListingPhoto(photoId, (err, results) => {
+    if (err) {
+      console.log('Server error deleting photo', err);
+    } else {
+      console.log('Server success adding photo');
+      res.sendStatus(201);
+    }
+  }) 
+})
+
+app.put('/listings/photos/:photo_id', (req, res) => {
+  const photoId = req.params.photo_id;
+  const photoDescription = req.body.photo_description;
+  const photoUrl = req.body.photo_url;
+  psql.updateListingPhoto(photoId, photoDescription, photoUrl, (err, results) => {
+    if (err) {
+      console.log('Server error updating photo', err);
+    } else {
+      console.log('Server success updating photo');
       res.sendStatus(201);
     }
   })
@@ -58,6 +84,7 @@ app.get('/users/:user_id/list', (req, res) => {
     }
   });
 });
+
 
 app.post('/users/:user_id/addList', (req, res) => {
   const userId = req.params.user_id;

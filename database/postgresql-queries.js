@@ -16,19 +16,51 @@ const getListingPhotos = (listingId, whenGotten) => {
 
 // getListingPhotos(2, (err, res) =>{}); // testing
 
-const addListingPhoto = (listingId, photoDescription, photoUrl, whenGotten) => {
+const addListingPhoto = (listingId, photoDescription, photoUrl, callback) => {
   const query = `INSERT INTO listing_photos (photo_description, photo_url, photo_listing_id) VALUES ('${photoDescription}', '${photoUrl}', ${listingId})`;
   db.query (query, (err, res) => {
     if (err) {
       console.log('Database error adding photo', err);
+      callback(err);
     } else {
       console.log('Database success adding photo');
-      whenGotten(null, res);
+      callback(null, res);
     }
   }) 
 }
 
 // addListingPhoto(10000000, 'sunset villa', 'www.test.com', (err, res) => {}); // testing
+
+const deleteListingPhoto = (photoId, callback) => {
+   const query = `DELETE FROM listing_photos WHERE id=${photoId}`;
+   db.query(query, (err, res) => {
+    if (err) {
+      console.log('Database error deleting photo', err);
+      callback(err);
+    } else {
+      console.log('Database success deleting photo');
+      callback(null, res);
+    }
+   })
+}
+
+// deleteListingPhoto(30000002, (err, res) => {}); // testing
+
+const updateListingPhoto = (photoId, photoDescription, photoUrl, callback) => {
+  // console.log(photoId, photoDescription, photoUrl)
+  const query = `UPDATE listing_photos SET photo_description='${photoDescription}', photo_url='${photoUrl}' WHERE id=${photoId}`;
+  db.query(query, (err, res) => {
+    if (err) {
+      console.log('Database error updating photo', err);
+      callback(err);
+    } else {
+      console.log('Database success updating photo');
+      callback(null, res);
+    }
+  })
+}
+
+updateListingPhoto(30000006, 'eichler home', 'www.eichlerhomes.com', (err, res) => {}); // testing
 
 const getLists = (userId, whenGotten) => {
   const theQuery = `SELECT * FROM lists WHERE list_user_id = ${userId}`;
@@ -44,6 +76,7 @@ const getLists = (userId, whenGotten) => {
 };
 
 // getLists(4, (err, res) => {});
+
 const addList = (userId, listName, whenDone) => {
   const theQuery = `INSERT INTO lists (list_name, list_user_id) VALUES ('${listName}', ${userId})`;
   db.query(theQuery, (err, res) => {
@@ -58,6 +91,7 @@ const addList = (userId, listName, whenDone) => {
 };
 
 // addList(4, 'Ya know it', (err, res) => {});
+
 const getListsOfListing = (listingId, whenGotten) => {
   const theQuery = `SELECT * FROM listings_lists WHERE listing_id = ${listingId}`;
   db.query(theQuery, (err, res) => {
@@ -121,6 +155,8 @@ const getListingDetails = (listingId, whenGotten) => {
 module.exports = {
   getListingPhotos,
   addListingPhoto,
+  deleteListingPhoto,
+  updateListingPhoto,
   getLists,
   addList,
   getListsOfListing,
