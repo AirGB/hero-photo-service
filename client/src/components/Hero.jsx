@@ -22,7 +22,7 @@ class Hero extends React.Component {
       numberOfFav: 0,
       userId: 28,
       lists: [],
-      listingId: 28,
+      listingId: 100,
       favoriteLists: [],
       favoriteListsObj: {},
       details: {},
@@ -87,6 +87,7 @@ class Hero extends React.Component {
         this.setState({ photos: response.data });
       })
       .catch((error) => {
+        console.log(error);
         console.log('Axios error in getting listing photos ', error);
       });
   }
