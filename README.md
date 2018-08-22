@@ -49,19 +49,19 @@ curl -X GET http://localhost:3000/api/listings/:listing_id/photos
 ## POST request to the server to add a new photo
 
 ```sh
-curl - X POST http://localhost:3000/api/listings/:listing_id/photos/new
+curl - X POST http://localhost:3000/api/listings/:listing_id/photos
 ```
 
 ## UPDATE request to the server to update a photo
 
 ```sh
-curl -X PUT http://localhost:3000/api/listings/:listing_id/photos/update
+curl -X PUT http://localhost:3000/api/listings/:listing_id/photos/:photo_id
 ```
 
 ## DELETE request to the server delete a photo 
 
 ```sh
-curl -X DELETE http://localhost:3000/api/listing/:listing_id/delete
+curl -X DELETE http://localhost:3000/api/listing/:listing_id/:photo_id
 ```
 
 

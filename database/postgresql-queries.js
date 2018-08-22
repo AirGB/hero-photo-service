@@ -8,7 +8,7 @@ const getListingPhotos = (listingId, whenGotten) => {
       console.log('Database side error in retrieving data from the listing_photos table ', err);
       whenGotten(err);
     } else {
-      console.log('Database side success in retriving data from the listing_photos table ', err);
+      // console.log('Database side success in retriving data from the listing_photos table ');
       whenGotten(null, res);
     }
   });
@@ -23,7 +23,7 @@ const addListingPhoto = (listingId, photoDescription, photoUrl, callback) => {
       console.log('Database error adding photo', err);
       callback(err);
     } else {
-      console.log('Database success adding photo');
+      // console.log('Database success adding photo');
       callback(null, res);
     }
   }) 
@@ -38,7 +38,7 @@ const deleteListingPhoto = (photoId, callback) => {
       console.log('Database error deleting photo', err);
       callback(err);
     } else {
-      console.log('Database success deleting photo');
+      // console.log('Database success deleting photo');
       callback(null, res);
     }
    })
@@ -54,13 +54,13 @@ const updateListingPhoto = (photoId, photoDescription, photoUrl, callback) => {
       console.log('Database error updating photo', err);
       callback(err);
     } else {
-      console.log('Database success updating photo');
+      // console.log('Database success updating photo');
       callback(null, res);
     }
   })
 }
 
-updateListingPhoto(30000006, 'eichler home', 'www.eichlerhomes.com', (err, res) => {}); // testing
+// updateListingPhoto(30000006, 'eichler home', 'www.eichlerhomes.com', (err, res) => {}); // testing
 
 const getLists = (userId, whenGotten) => {
   const theQuery = `SELECT * FROM lists WHERE list_user_id = ${userId}`;
@@ -69,7 +69,7 @@ const getLists = (userId, whenGotten) => {
       console.log('Database side error in retrieving data from the lists table ', err);
       whenGotten(err);
     } else {
-      console.log('Database side success in retrieving data from the lists table ', res);
+      // console.log('Database side success in retrieving data from the lists table ');
       whenGotten(null, res);
     }
   });
@@ -84,7 +84,7 @@ const addList = (userId, listName, whenDone) => {
       console.log('Database side error in inserting into the lists table');
       whenDone(err);
     } else {
-      console.log('Database side success in inserting into the lists table');
+      // console.log('Database side success in inserting into the lists table');
       whenDone(null, res);
     }
   });
@@ -99,7 +99,7 @@ const getListsOfListing = (listingId, whenGotten) => {
       console.log('Database side error in retrieving data from the listings_lists table ', err);
       whenGotten(err);
     } else {
-      console.log('Databas side success in retrieving data from the listings_lists table ', res);
+      // console.log('Databas side success in retrieving data from the listings_lists table ');
       whenGotten(null, res);
     }
   });
@@ -114,7 +114,7 @@ const addToFavorite = (listingId, listId, whenDone) => {
       console.log('Database side error in adding data to the listings_lists table ', err);
       whenDone(err);
     } else {
-      console.log('Database side success in adding data to the listings_lists table ', res);
+      // console.log('Database side success in adding data to the listings_lists table ');
       whenDone(null, res);
     }
   });
@@ -129,7 +129,7 @@ const removeFromFavorite = (listingId, listId, whenDone) => {
       console.log('Database side error in deleting data from the listings_lists table ', err);
       whenDone(err);
     } else {
-      console.log('Database side success in deleting data from the listings_lists table ', res);
+      // console.log('Database side success in deleting data from the listings_lists table ');
       whenDone(null, res);
     }
   });
@@ -144,7 +144,7 @@ const getListingDetails = (listingId, whenGotten) => {
       console.log('Database side error in retrieving data from the listings table ', err);
       whenGotten(err);
     } else {
-      console.log('Databas side success in retrieving data from the listings table ', res);
+      // console.log('Databas side success in retrieving data from the listings table ');
       whenGotten(null, res);
     }
   });

@@ -1,0 +1,56 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 60
+      arrivalRate: 1000
+  payload:
+    path: "photosData.csv"
+    fields:
+      - "listingId"
+      - "photoDescription"
+      - "photoUrl"
+      - "photo_listing_id"
+scenarios:
+  - name: "Get photos by listing id"
+    weight: 99
+    flow:
+      - loop:
+        - get:
+            url: "/listings/{{ listingId }}/photos"
+        count: 10
+  - name: "Add a new photo"
+    weight: 1
+    flow:
+      - post:
+          url: "/listings/{{ listingId }}/photos"
+          json:
+            photo_description: {{ photoDescription }}
+            photo_url: {{ photoUrl }}
+            photo_listing_id: {{ listingId }}
+# config:
+#   target: "http://localhost:3000"
+#   phases:
+#     - duration: 60
+#       arrivalRate: 500
+#   variables:
+#     listingid:
+#       - [ 9000000, 9000001, 9000002, 9000003, 90000004]
+# scenarios:
+#   - flow:
+#     - loop:
+#       - get:
+#           url: "/listings/{{$loopElement}}/photos"
+#       count: 5
+      # over: listingid
+    # - loop:
+    #   - get:
+    #       url: "/users/{{$loopElement}}/list"
+    #   # count: 5
+    #   over: listingid
+    # - loop: 
+    #   - post:
+    #       url: "/listings/{{$loopElement}}/photos/new"
+    #   over: listingid
+      # - post: 
+      #     url: "/users/{{$loopElement}}/list"
+      # over: listingid

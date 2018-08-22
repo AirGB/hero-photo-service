@@ -3,3 +3,4 @@ coverage/
 database/Populator.js
 .env
 *.csv
+NEW_RELIC_KEY.js
