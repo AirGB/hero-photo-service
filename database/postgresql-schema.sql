@@ -4,7 +4,7 @@
 -- \c hero;
 
 CREATE TABLE users (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   user_name TEXT NOT NULL, 
   user_membership_date date NOT NULL,
   user_photo_url TEXT NOT NULL
@@ -13,7 +13,7 @@ CREATE TABLE users (
 
 
 CREATE TABLE lists (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   list_name TEXT NOT NULL,
   list_user_id INT NOT NULL
 );
@@ -21,7 +21,7 @@ CREATE TABLE lists (
 
 
 CREATE TABLE listings (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   listing_name TEXT, 
   listing_review_average INT,
   listing_review_total INT,
@@ -43,7 +43,7 @@ CREATE TABLE listings_lists (
 
 
 CREATE TABLE listing_photos (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   photo_description TEXT,
   photo_url TEXT,
   photo_listing_id INT NOT NULL
