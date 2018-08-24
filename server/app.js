@@ -11,7 +11,7 @@ const redis = require('redis');
 const app = express();
 
 // create a new redis client and connect to our local redis instance
-var client = redis.createClient(6379, '54.191.186.162');
+var client = redis.createClient(6379, '54.191.178.210');
 
 // if an error occurs, print it to the console
 client.on('error', function(err) {
