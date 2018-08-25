@@ -3,13 +3,14 @@
 var pg = require ('pg')
 var conString = "postgres://serviolee@localhost:5432/postgres";
 
-
-var db = new pg.Pool({
-  user: "serviolee",
-  host: "127.0.0.1",
-  database: "postgres",
-  port: 5432
-});
+var db = new pg.Client(conString);
+db.connect();
+// var db = new pg.Pool({
+//   user: "serviolee",
+//   host: "127.0.0.1",
+//   database: "postgres",
+//   port: 5432
+// });
 
 ///************* CREATE DATABASE ************/////
 
