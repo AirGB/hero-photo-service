@@ -1,7 +1,7 @@
 // var pgp = require('pg-promise')(/*options*/)
 // var db = pgp('postgres://serviolee@localhost:5432/postgres')
 var pg = require ('pg')
-var conString = "postgres://serviolee@localhost:5432/postgres";
+var conString = "postgres://power_user:$poweruserpassword@34.216.252.8/hero";
 
 var db = new pg.Client(conString);
 db.connect();

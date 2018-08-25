@@ -4,6 +4,7 @@ const getListingPhotos = (listingId, whenGotten) => {
   // console.log('database getlistingPhotos', listingId);
   const theQuery = `SELECT * FROM listing_photos WHERE photo_listing_id = ${listingId}`;
   db.query(theQuery, (err, res) => {
+    console.log(err, res);
     if (err) {
       console.log('Database side error in retrieving data from the listing_photos table ', err);
       whenGotten(err);

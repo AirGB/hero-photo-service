@@ -10,7 +10,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['hero-photo-service'],
+  app_name: ['EC2-hero-photo-service'],
   /**
    * Your New Relic license key.
    */
