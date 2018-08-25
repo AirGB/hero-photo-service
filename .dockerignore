@@ -1,0 +1,4 @@
+*.csv
+node_modules
+database/Populator.js
+data-generator
