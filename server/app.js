@@ -34,8 +34,9 @@ app.use(bodyParser.json());
 app.get('/listings/:listing_id/photos', (req, res) => {
   const listingId = req.params.listing_id;
 
+
   // query the database to get all data from the listing_photos table
-  // console.log(listingId)
+  console.log(listingId)
   client.get(listingId, (error, result) => {
     if (result) {
       res.json(result.rows);
