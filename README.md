@@ -1,6 +1,6 @@
 # Hero Photo Service for AirGB
 
-Backend hero gallery module for vacation home rental reservation platform similar to Airbnb
+Backend of hero gallery module for vacation home rental reservation platform similar to Airbnb
 
 ## Related Projects
 
